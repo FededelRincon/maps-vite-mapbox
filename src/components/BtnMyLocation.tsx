@@ -32,7 +32,7 @@ export const BtnMyLocation = () => {
                 zIndex: '999'
             }}
         >
-            Mi Ubicacion
+            Mi Ubicacion - o casita???
         </div>
     )
 }
