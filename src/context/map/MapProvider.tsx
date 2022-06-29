@@ -1,5 +1,5 @@
+import { Map, Marker, Popup } from "mapbox-gl";
 import { useReducer } from 'react';
-import { Map } from "mapbox-gl";
 
 import { mapReducer } from "./mapReducer";
 import { MapContext } from './MapContext';
@@ -26,6 +26,21 @@ export const MapProvider = ({ children }:Props) => {
 
 
     const setMap = ( map: Map ) => {
+
+        const myLocationPopup = new Popup()
+            .setHTML(`
+                <h4>Ud esta aqui</h4>
+                `)
+                // <p>En algun lugar del mundo</p>
+
+
+        new Marker({
+            color: '#61DAFB'
+        }) //agrego el marcador, le pongo las coordenadas y lo agrego al mapa, y lo dispatch
+            .setLngLat( map.getCenter() )
+            .setPopup( myLocationPopup )
+            .addTo( map );
+
         dispatch({type: 'setMap', payload: map})
     }
 
