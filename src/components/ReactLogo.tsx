@@ -1,15 +1,16 @@
-import reactLogo from '../logo.svg';
+import fdrLogo from '../fdrLogo.svg';
+// import reactLogo from '../logo.svg';
 
 
 export const ReactLogo = () => {
     return (
         <div>
             <img
-                src={reactLogo}
+                src={fdrLogo}
                 alt="React Logo"
                 style={{
                     position: 'fixed',
-                    bottom: '20px',
+                    bottom: '30px',
                     right: '20px',
                     width: '100px'
                 }}
