@@ -43,7 +43,7 @@ export const MapView = () => {
                 width: '100vw',
             }}
         >
-            { userLocation?.join(', ') }
+            {/* { userLocation?.join(', ') } */}
         </div>
     )
 }
