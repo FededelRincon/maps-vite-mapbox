@@ -4,6 +4,9 @@ import { useReducer, useContext, useEffect } from 'react';
 import { mapReducer } from "./mapReducer";
 import { MapContext } from './MapContext';
 import { PlacesContext } from "../index";
+import { directionsApi } from '../../apis';
+
+import { DirectionsReponse } from '../../interfaces/directions';
 
 
 export interface MapState {
@@ -75,6 +78,17 @@ export const MapProvider = ({ children }:Props) => {
 
 
     const getRouteBetweenPoints = async(start:[number, number], end: [number, number]) => {
+
+        const resp = await directionsApi.get<DirectionsReponse>(`/${ start.join(',') };${ end.join(',')}`);
+        const { distance, duration } = resp.data.routes[0];
+
+        let kms = distance / 1000;
+            kms = Math.round( kms * 100 );
+            kms = kms / 100;
+
+        const minutes = Math.floor( duration / 60 )
+
+        console.log({kms, minutes})
 
     }
 
