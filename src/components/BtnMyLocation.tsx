@@ -15,7 +15,7 @@ export const BtnMyLocation = () => {
         if( !userLocation ) throw new Error ('No hay ubicacion de usuario')
 
         map?.flyTo({
-            zoom: 15,
+            zoom: 14,
             center: userLocation
         })
     }

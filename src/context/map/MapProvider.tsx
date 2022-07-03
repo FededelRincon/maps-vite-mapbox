@@ -1,4 +1,4 @@
-import { Map, Popup, Marker } from 'mapbox-gl';
+import { Map, Popup, Marker, LngLatBounds, AnySourceData } from 'mapbox-gl';
 import { useReducer, useContext, useEffect } from 'react';
 
 import { mapReducer } from "./mapReducer";
@@ -84,7 +84,8 @@ export const MapProvider = ({ children }:Props) => {
     const getRouteBetweenPoints = async(start:[number, number], end: [number, number]) => {
 
         const resp = await directionsApi.get<DirectionsReponse>(`/${ start.join(',') };${ end.join(',')}`);
-        const { distance, duration } = resp.data.routes[0];
+        const { distance, duration, geometry } = resp.data.routes[0];
+        const { coordinates: coords } = geometry
 
         let kms = distance / 1000;
             kms = Math.round( kms * 100 );
@@ -92,9 +93,61 @@ export const MapProvider = ({ children }:Props) => {
 
         const minutes = Math.floor( duration / 60 )
 
-        // console.log({kms, minutes})
         dispatch({ type: 'setKms', payload: kms });
         dispatch({ type: 'setMinutes', payload: minutes });
+
+        const bounds = new LngLatBounds(
+            start,
+            start
+        );
+        for (const coord of coords) {
+            const newCoord: [number, number] = [ coord[0], coord[1] ]
+            bounds.extend( newCoord );
+        }
+
+        state.map?.fitBounds( bounds, {
+            padding: 250,
+        });
+
+        // Polyline
+        const sourceData: AnySourceData = {
+            type: 'geojson',
+            data: {
+                type: 'FeatureCollection',
+                features: [
+                    {
+                        type: 'Feature',
+                        properties: {},
+                        geometry: {
+                            type: 'LineString',
+                            coordinates: coords
+                        }
+                    }
+                ]
+            }
+        }
+
+        //Limpiar la polyline
+        if( state.map?.getLayer('RouteString')){
+            state.map.removeLayer('RouteString');
+            state.map.removeSource('RouteString');
+        }
+
+
+        state.map?.addSource('RouteString', sourceData);
+        state.map?.addLayer({
+            id: 'RouteString',
+            type: 'line',
+            source: 'RouteString',
+            layout: {
+                'line-cap': 'round',
+                'line-join': 'round'
+            },
+            paint: {
+                'line-color': '#5bc0de',
+                'line-width': 4
+            }
+        })
     }
     
     const clearKmsAndMinutes = () => {

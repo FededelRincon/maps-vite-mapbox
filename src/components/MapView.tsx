@@ -19,7 +19,7 @@ export const MapView = () => {
                 container: mapDiv.current!,
                 style: 'mapbox://styles/mapbox/dark-v10', // style URL
                 center: userLocation, 
-                zoom: 15 // starting zoom
+                zoom: 14 // starting zoom
             });
 
             setMap( map );
