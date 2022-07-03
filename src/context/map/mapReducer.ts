@@ -5,10 +5,10 @@ type MapAction =
     | { type: 'setMap', payload: Map }
     | { type: 'setMarkers', payload: Marker[] }
 
-    | { type: 'setKms', payload: Number | null }
+    | { type: 'setKms', payload: number | null }
     | { type: 'clearKms' }
 
-    | { type: 'setMinutes', payload: Number | null }
+    | { type: 'setMinutes', payload: number | null }
     | { type: 'clearMinutes' }
 
 
