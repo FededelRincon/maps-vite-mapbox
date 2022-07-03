@@ -5,8 +5,8 @@ import { createContext } from "react";
 interface MapContextProps {
     isMapReady: boolean;
     map?: Map;
-    kms: Number | null;
-    minutes: Number | null;
+    kms: number | null;
+    minutes: number | null;
 
     // Methods
     setMap: (map: Map) => void;

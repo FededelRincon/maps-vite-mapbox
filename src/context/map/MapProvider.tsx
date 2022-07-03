@@ -13,8 +13,8 @@ export interface MapState {
     isMapReady: boolean;
     map?: Map;
     markers: Marker[];
-    kms: Number | null;
-    minutes: Number | null;
+    kms: number | null;
+    minutes: number | null;
 }
 
 const INITIAL_STATE:MapState = {
@@ -151,6 +151,12 @@ export const MapProvider = ({ children }:Props) => {
     }
     
     const clearKmsAndMinutes = () => {
+        // clean Polyline
+        if( state.map?.getLayer('RouteString')){
+            state.map.removeLayer('RouteString');
+            state.map.removeSource('RouteString');
+        }
+
         dispatch({ type: 'clearMinutes' });
         dispatch({ type: 'clearKms' });
     }
