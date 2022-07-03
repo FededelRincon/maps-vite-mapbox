@@ -59,7 +59,7 @@ export const SearchResults = () => {
                             onClick={()=>getRoute(place)}
                             className={`btn btn-sm ${ activeId === place.id ? 'btn-outline-light' : 'btn-outline-info'} `}
                         >
-                            Direcciones
+                            Ruta recomendada !
                         </button>
                     </li>
                 ))

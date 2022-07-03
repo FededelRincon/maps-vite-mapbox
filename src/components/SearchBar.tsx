@@ -1,11 +1,14 @@
 import { ChangeEvent, useRef, useContext } from 'react';
 import { PlacesContext } from '../context';
 import { SearchResults } from './SearchResults';
+import { MapContext } from '../context/map/MapContext';
 
 
 export const SearchBar = () => {
 
     const { searchPlacesByTerm } = useContext(PlacesContext)
+    const { clearKmsAndMinutes } = useContext(MapContext);
+
     const debounceRef = useRef<NodeJS.Timeout>()
 
     const onQueryChange = ( event: ChangeEvent<HTMLInputElement> ) => {
@@ -16,6 +19,8 @@ export const SearchBar = () => {
         debounceRef.current = setTimeout(() => {
             searchPlacesByTerm( event.target.value )
         }, 350);
+
+        clearKmsAndMinutes();
     }
 
 

@@ -2,7 +2,7 @@ import fdrLogo from '../fdrLogo.svg';
 // import reactLogo from '../logo.svg';
 
 
-export const ReactLogo = () => {
+export const FdrLogo = () => {
     return (
         <div>
             <img

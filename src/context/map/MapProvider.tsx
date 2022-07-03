@@ -13,12 +13,16 @@ export interface MapState {
     isMapReady: boolean;
     map?: Map;
     markers: Marker[];
+    kms: Number | null;
+    minutes: Number | null;
 }
 
 const INITIAL_STATE:MapState = {
     isMapReady: false,
     map: undefined, //lo defino asi para q aparezca en devTool asi
     markers: [],
+    kms: null,
+    minutes: null,
 }
 
 
@@ -88,8 +92,14 @@ export const MapProvider = ({ children }:Props) => {
 
         const minutes = Math.floor( duration / 60 )
 
-        console.log({kms, minutes})
-
+        // console.log({kms, minutes})
+        dispatch({ type: 'setKms', payload: kms });
+        dispatch({ type: 'setMinutes', payload: minutes });
+    }
+    
+    const clearKmsAndMinutes = () => {
+        dispatch({ type: 'clearMinutes' });
+        dispatch({ type: 'clearKms' });
     }
 
     return (
@@ -99,6 +109,7 @@ export const MapProvider = ({ children }:Props) => {
             //Methods
             setMap, 
             getRouteBetweenPoints,
+            clearKmsAndMinutes,
         }}>
             { children }
         </MapContext.Provider>
