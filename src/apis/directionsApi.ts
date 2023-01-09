@@ -9,10 +9,9 @@ const directionsApi = axios.create({
         language: 'es',
         overview: 'simplified',
         steps: false,
-        access_token: 'pk.eyJ1IjoicGFxdWV0aW5obyIsImEiOiJja2sycDc4YzAxM2kyMm9tZm8ybWg3emdrIn0.6XhGimBpY4H5p_zjExagpg',
+        access_token: import.meta.env.VITE_MAPBOXAPP_API_KEY,
+        // este import.meta.env., busca las variables de entorno. Si o si necesita de VITE_nombreVariable
     }
 })
-
-
 
 export default directionsApi;
